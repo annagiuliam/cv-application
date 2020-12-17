@@ -52,7 +52,13 @@ class GeneralForm extends Component {
                         </form>
                 </div>                
                 ) : (
-                <GeneralInfo info={this.state.generalInfo} handler={this.handleEdit} />
+                    <div className="GeneralInfoContainer">
+                        <GeneralInfo info={this.state.generalInfo} />
+                        { <div className="buttonDiv">
+                            <button type="button" onClick={this.handleEdit} >Edit</button>
+                        </div> }
+                    </div>
+                
                 )}
                     
                 
