@@ -2,7 +2,10 @@
 import './App.css';
 import React, { Component } from "react";
 
-import GeneralForm from "./components.js/GeneralForm"
+import Header from "./components/Header";
+import GeneralForm from "./components/GeneralForm";
+import EducationForm from "./components/EducationForm"
+
 
 class App extends Component {
   constructor() {
@@ -11,8 +14,13 @@ class App extends Component {
 
   render() {   
 
-    return (      
+    return (  
+      <div className="appContainer">
+        <Header />   
         <GeneralForm />
+        <EducationForm />
+      </div>
+      
      
     );
   }

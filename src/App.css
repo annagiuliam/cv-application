@@ -1,8 +1,62 @@
 .App {
   text-align: center;
+  
+}
+.appContainer {
+  display: grid;
+  text-align: center;
+  grid-template-columns: 1fr 3fr;
+  grid-template-areas: 
+  "header header"
+  "sidebar content"
 }
 
-.App-logo {
+.header {
+  grid-area: header;
+}
+
+.formDiv {
+  display: block;
+  text-align: center;
+}
+form {
+  display: inline-block;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center
+}
+
+.formInput {
+  width: 250px;
+  height: 25px;
+  margin: 10px;
+}
+.generalSection {
+  background-color: pink;
+  grid-area: sidebar;
+  text-align: center;
+}
+
+.generalInfoDiv {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 10px;
+  margin: 15px;
+  
+}
+#nameLabel, #surnameLabel, #phoneLabel, #emailLabel {
+  justify-self: end;
+}
+#nameData, #surnameData, #phoneData, #emailData {
+  justify-self: start;
+}
+
+.buttonDiv {
+text-align: center;
+}
+
+
+/* .App-logo {
   height: 40vmin;
   pointer-events: none;
 }
@@ -35,4 +89,4 @@
   to {
     transform: rotate(360deg);
   }
-}
+} */

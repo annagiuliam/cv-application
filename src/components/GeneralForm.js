@@ -1,5 +1,6 @@
 import React, { Component} from "react";
-import GeneralInfo from "./GeneralInfo"
+import GeneralInfo from "./GeneralInfo";
+//import '../App.css';
 
 class GeneralForm extends Component {
     constructor(props) {
@@ -39,8 +40,8 @@ class GeneralForm extends Component {
         const { name, surname, phone, email} = this.state.generalInfo;
 
         return (
-            <div className="GeneralSection">
-                <h1 className="GeneralFormHeader">General information</h1>
+            <div className="generalSection">
+                <h2 className="generalFormHeader">General information</h2>
                 {!this.state.formSubmitted ? (
                     <div className="formDiv"> 
                         <form onSubmit={this.handleSubmit}>
@@ -48,15 +49,19 @@ class GeneralForm extends Component {
                             <input type="text" name="surname" value={surname} onChange={this.handleChange} id="surnameInput" className="formInput" placeholder="Enter your surname" required></input>
                             <input type="text" name="phone" value={phone} onChange={this.handleChange} id="phoneInput" className="formInput" placeholder="Enter your phone number" required></input>
                             <input type="text" name="email" value={email} onChange={this.handleChange} id="emailInput" className="formInput" placeholder="Enter your e-mail" required></input>
+                            {/* <button type="submit" value="Submit">Submit</button> */}
+                            <div className="buttonDiv">
                             <input type="submit" value="Submit" />
+                            </div>
+                            
                         </form>
                 </div>                
                 ) : (
-                    <div className="GeneralInfoContainer">
+                    <div className="generalInfoContainer">
                         <GeneralInfo info={this.state.generalInfo} />
-                        { <div className="buttonDiv">
+                         <div className="buttonDiv">
                             <button type="button" onClick={this.handleEdit} >Edit</button>
-                        </div> }
+                        </div> 
                     </div>
                 
                 )}
