@@ -4,7 +4,7 @@ import React, { Component } from "react";
 
 import Header from "./components/Header";
 import GeneralForm from "./components/GeneralForm";
-import EducationForm from "./components/EducationForm"
+import Education from "./components/Education"
 
 
 class App extends Component {
@@ -18,7 +18,7 @@ class App extends Component {
       <div className="appContainer">
         <Header />   
         <GeneralForm />
-        <EducationForm />
+        <Education />
       </div>
       
      

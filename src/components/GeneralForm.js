@@ -25,9 +25,10 @@ class GeneralForm extends Component {
         })
     }
 
-    handleSubmit(event) {         
+    handleSubmit(event) { 
+        event.preventDefault()        
         this.setState({formSubmitted: true})
-        event.preventDefault()
+        
         console.log(this.state);
     }
 
