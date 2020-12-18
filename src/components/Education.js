@@ -8,10 +8,16 @@ class Education extends Component {
         super(props);
 
         this.state = {
-            educationList : [],
-            educationInfo : {id : uniqid(), startDate : "", endDate : "", school : "", title : ""},
             formSubmitted : false,
             formActive : false,
+            educationList : [],
+            //educationInfo : {id : uniqid(), startDate : "", endDate : "", school : "", title : ""},
+            currentId : "",
+            startDate : "",
+            endDate : "",
+            school : "",
+            title: "",           
+            
         }
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -19,21 +25,34 @@ class Education extends Component {
     }
 
     handleChange(event) {
+        event.preventDefault();
         const target = event.target;
         const value = target.value;
         const name = target.name;   
 
         this.setState({ 
-            educationInfo: { ...this.state.educationInfo, [name]: value}
+            //educationInfo: { ...this.state.educationInfo, [name]: value}
+            [name]:value
         });
     }
 
     handleSubmit(event) {   
-        event.preventDefault()    
+        event.preventDefault() 
+        
+        
+        let edu = [{
+            id: uniqid(),
+            startDate: this.state.startDate,
+            endDate : this.state.endDate,
+            school : this.state.school,
+            title : this.state.title
+        }] 
         this.setState({
             formActive : false,
-            educationList : this.state.educationList.concat(this.state.educationInfo),
-            educationInfo : {startDate : "", endDate : "", school : "", title : ""}
+            formSubmitted : true,
+            educationList : this.state.educationList.concat(edu),
+            //educationInfo : {startDate : "", endDate : "", school : "", title : ""}
+           // school : "",
         })
         
       console.log(this.state);
@@ -48,7 +67,7 @@ class Education extends Component {
         
     
     render(){      
-        const { formActive} = this.state;
+        const { formActive, formSubmitted, educationList} = this.state;
         
         return(
             
@@ -58,15 +77,21 @@ class Education extends Component {
                     <button onClick={this.renderForm}>Add School</button>
                 </div>
                 {formActive && <EducationForm 
-                info={this.state.educationInfo}
+                info={this.state}
                 onSubmit={this.handleSubmit}
-                onChange={this.handleChange}
-                
+                onChange={this.handleChange}                
                 /> }
+
+                {/* {formSubmitted && <EducationInfo info={this.state.educationInfo} />} */}
+
+                {educationList.map((school) => {
+                    return (
+                        <EducationInfo key={school.id}
+                        info={school} />
+                    )
+                })}
                 
-                    {/* <div className="eduItemsContainer">
-                        <EducationInfo info={this.state.educationInfo} />
-                    </div> */}
+                    
                 
             </div>
         
