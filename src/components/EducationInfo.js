@@ -13,6 +13,8 @@ const EducationInfo = (props) => {
             <div className="eduInfo" id="schoolData">{school}</div>
             <div className="eduInfo" id="titleLabel">Title:</div>
             <div className="eduInfo" id="titleData">{title}</div>
+            <button onClick={props.onDelete}>Delete</button>
+            <button onClick={props.onEdit}>Edit</button>
         </div>
     )
 

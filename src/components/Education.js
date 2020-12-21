@@ -7,11 +7,10 @@ class Education extends Component {
     constructor(props) {
         super(props);
 
-        this.state = {
-            formSubmitted : false,
-            formActive : false,
-            educationList : [],
-            //educationInfo : {id : uniqid(), startDate : "", endDate : "", school : "", title : ""},
+        this.state = {          
+           
+            editActive : false,
+            educationList : [],            
             currentId : "",
             startDate : "",
             endDate : "",
@@ -22,6 +21,9 @@ class Education extends Component {
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.renderForm = this.renderForm.bind(this);
+        this.handleDelete = this.handleDelete.bind(this);
+        this.handleEdit = this.handleEdit.bind(this);
+
     }
 
     handleChange(event) {
@@ -31,7 +33,6 @@ class Education extends Component {
         const name = target.name;   
 
         this.setState({ 
-            //educationInfo: { ...this.state.educationInfo, [name]: value}
             [name]:value
         });
     }
@@ -47,12 +48,18 @@ class Education extends Component {
             school : this.state.school,
             title : this.state.title
         }] 
+        //const sortedList = educationList.sort((a, b) => new Date (b.endDate) - new Date (a.endDate))
         this.setState({
-            formActive : false,
-            formSubmitted : true,
-            educationList : this.state.educationList.concat(edu),
-            //educationInfo : {startDate : "", endDate : "", school : "", title : ""}
-           // school : "",
+            formActive : false,            
+            educationList : this.state.educationList
+                                                    .concat(edu)
+                                                    .sort((a, b) => new Date (b.endDate) - new Date (a.endDate)),
+            id: "",
+            startDate: "",
+            endDate : "",
+            school : "",
+            title : ""
+           
         })
         
       console.log(this.state);
@@ -62,13 +69,33 @@ class Education extends Component {
         this.setState({
             formActive : true
         })       
-    }        
+    }    
+    
+    handleDelete(schoolId) { 
+        let filteredArray = this.state.educationList.filter(item => item.id !== schoolId)
+        this.setState({educationList: filteredArray});
+    }
+
+    handleEdit(schoolId) {
+        const currSchool = this.state.educationList.find(item => item.id === schoolId);
+        this.setState({           
+            formActive : true,
+            currentId : currSchool.id,
+            startDate : currSchool.startDate,
+            endDate : currSchool.endDate,
+            school : currSchool.school,
+            title: currSchool.title, 
+        })
+        this.handleDelete(schoolId);
+    }
           
         
     
-    render(){      
-        const { formActive, formSubmitted, educationList} = this.state;
-        
+    render(){   
+            
+        const { formActive, educationList} = this.state;
+        //const sortedList = educationList.map((item))
+       
         return(
             
             <div className="educationSection">
@@ -82,17 +109,15 @@ class Education extends Component {
                 onChange={this.handleChange}                
                 /> }
 
-                {/* {formSubmitted && <EducationInfo info={this.state.educationInfo} />} */}
-
                 {educationList.map((school) => {
-                    return (
+                    return ( 
                         <EducationInfo key={school.id}
-                        info={school} />
+                        info={school} 
+                        onDelete={() => this.handleDelete(school.id)}
+                        onEdit={() => this.handleEdit(school.id)}
+                        />                
                     )
                 })}
-                
-                    
-                
             </div>
         
         )
