@@ -48,7 +48,7 @@ class Education extends Component {
             school : this.state.school,
             title : this.state.title
         }] 
-        //const sortedList = educationList.sort((a, b) => new Date (b.endDate) - new Date (a.endDate))
+        
         this.setState({
             formActive : false,            
             educationList : this.state.educationList
@@ -94,14 +94,14 @@ class Education extends Component {
     render(){   
             
         const { formActive, educationList} = this.state;
-        //const sortedList = educationList.map((item))
+        
        
         return(
             
             <div className="educationSection">
                 <h2 className="educationHeader">Education</h2>
-                <div>
-                    <button onClick={this.renderForm}>Add School</button>
+                <div className="addBtnDiv">
+                    <button  onClick={this.renderForm}>Add School</button>
                 </div>
                 {formActive && <EducationForm 
                 info={this.state}

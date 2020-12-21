@@ -45,7 +45,7 @@ class GeneralForm extends Component {
                 <h2 className="generalFormHeader">General information</h2>
                 {!this.state.formSubmitted ? (
                     <div className="formDiv"> 
-                        <form onSubmit={this.handleSubmit}>
+                        <form id="generalFOrm" onSubmit={this.handleSubmit}>
                             <input type="text" name="name" value={name} onChange={this.handleChange} id="nameInput" className="formInput" placeholder="Enter your name" required></input>
                             <input type="text" name="surname" value={surname} onChange={this.handleChange} id="surnameInput" className="formInput" placeholder="Enter your surname" required></input>
                             <input type="text" name="phone" value={phone} onChange={this.handleChange} id="phoneInput" className="formInput" placeholder="Enter your phone number" required></input>

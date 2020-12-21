@@ -2,6 +2,13 @@
   text-align: center;
   
 }
+button {
+  margin: 10px;
+}
+.buttonDiv {
+  text-align: center;
+  }
+  
 .appContainer {
   display: grid;
   text-align: center;
@@ -13,6 +20,18 @@
 
 .header {
   grid-area: header;
+  justify-self: center;
+}
+.generalSection {
+  background-color: pink;
+  grid-area: sidebar;
+  text-align: center;
+}
+.educationSection {
+  grid-area: content;
+  justify-self: start;
+  margin-left: 100px;
+ 
 }
 
 .formDiv {
@@ -31,11 +50,7 @@ form {
   height: 25px;
   margin: 10px;
 }
-.generalSection {
-  background-color: pink;
-  grid-area: sidebar;
-  text-align: center;
-}
+
 
 .generalInfoDiv {
   display: grid;
@@ -51,10 +66,64 @@ form {
   justify-self: start;
 }
 
-.buttonDiv {
-text-align: center;
+
+.eduItem {
+  grid-area: box;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 10px;
+  margin:15px;
+  grid-template-areas:
+  "date date"
+  "locationLabel locationData"
+  "infoLabel infoData"
+  "btns btns"
+}
+.educationHeader {
+  grid-area: title;
+}
+.addBtnDiv {
+  grid-area: btn;
 }
 
+#dates {
+  grid-area: date;
+  justify-self: center;
+}
+#schoolLabel {
+  grid-area: locationLabel;
+  justify-self: end;
+}
+#schoolData {
+  grid-area: locationData;
+  justify-self: start;
+}
+
+#titleLabel {
+  grid-area: infoLabel;
+  justify-self: end;
+}
+
+#titleData {
+  grid-area : infoData;
+  justify-self: start;
+}
+.buttonsDiv {
+  text-align: center;
+  grid-area: btns;
+  justify-self: center;
+}
+
+
+
+/* #eduDelBtn {
+  grid-area: deleteBtn;
+}
+
+#eduEditBtn {
+  grid-area: editBtn;
+} */
 
 /* .App-logo {
   height: 40vmin;
