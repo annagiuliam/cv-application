@@ -1,6 +1,5 @@
 import React, { Component} from "react";
 import GeneralInfo from "./GeneralInfo";
-//import '../App.css';
 
 class GeneralForm extends Component {
     constructor(props) {
@@ -50,11 +49,9 @@ class GeneralForm extends Component {
                             <input type="text" name="surname" value={surname} onChange={this.handleChange} id="surnameInput" className="formInput" placeholder="Enter your surname" required></input>
                             <input type="text" name="phone" value={phone} onChange={this.handleChange} id="phoneInput" className="formInput" placeholder="Enter your phone number" required></input>
                             <input type="text" name="email" value={email} onChange={this.handleChange} id="emailInput" className="formInput" placeholder="Enter your e-mail" required></input>
-                            {/* <button type="submit" value="Submit">Submit</button> */}
                             <div className="buttonDiv">
                             <input type="submit" value="Submit" />
                             </div>
-                            
                         </form>
                 </div>                
                 ) : (
@@ -64,14 +61,9 @@ class GeneralForm extends Component {
                             <button type="button" onClick={this.handleEdit} >Edit</button>
                         </div> 
                     </div>
-                
-                )}
-                    
-                
-                
+                )}    
             </div>
         )
-
     }
 }
 

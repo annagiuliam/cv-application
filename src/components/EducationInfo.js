@@ -3,13 +3,11 @@ import { format } from 'date-fns';
 
 
 const EducationInfo = (props) => {
+    
     function formatDate(date) {
-        
-            const dateInfo = date.split("-");
-            const formDate = format(new Date(dateInfo[0], dateInfo[1] - 1, dateInfo[2]), "PP");
-            return formDate;
-        
-        
+        const dateInfo = date.split("-");
+        const formDate = format(new Date(dateInfo[0], dateInfo[1] - 1, dateInfo[2]), "PP");
+        return formDate;
     }
 
     const {startDate, endDate, school, title} = props.info;
@@ -26,11 +24,9 @@ const EducationInfo = (props) => {
             <div className="buttonsDiv">
                 <button id="eduDelBtn" onClick={props.onDelete}>Delete</button>
                 <button id="eduEditBtn" onClick={props.onEdit}>Edit</button>
-            </div>
-            
+            </div> 
         </div>
     )
-
 }
 
 export default EducationInfo;
