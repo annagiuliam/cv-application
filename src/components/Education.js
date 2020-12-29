@@ -1,114 +1,97 @@
-import React, {Component} from "react";
+import React, {useState} from "react";
 import EducationInfo from "./EducationInfo";
 import EducationForm from "./EducationForm";
 import uniqid from "uniqid";
 
-class Education extends Component {
-    constructor(props) {
-        super(props);
+const Education = () => {
+    const [formActive, setFormActive] = useState(false)     
+    const [eduList, setEduList] = useState([]);       
+    const [currEdu, setCurrEdu]  = useState({
+                                        currentId : "",
+                                        startDate : "",
+                                        endDate : "",
+                                        school : "",
+                                        title: "",
+                                        })                 
+        
+    
 
-        this.state = {        
-            formActive : false,
-            educationList : [],            
-            currentId : "",
-            startDate : "",
-            endDate : "",
-            school : "",
-            title: "",              
-        }
-        this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
-        this.renderForm = this.renderForm.bind(this);
-        this.handleDelete = this.handleDelete.bind(this);
-        this.handleEdit = this.handleEdit.bind(this);
-    }
-
-    renderForm(event) {       
-        this.setState({
-            formActive : true
-        })       
+    const renderForm = (event) => {       
+        setFormActive(true)      
     }  
 
-    handleChange(event) {
+   const handleChange = (event) =>  {
         const target = event.target;
         const value = target.value;
         const name = target.name;   
 
-        this.setState({ 
-            [name]:value
-        });
+        setCurrEdu({...currEdu, [name]: value})
     }
 
-    handleSubmit(event) {   
+    const handleSubmit = (event) =>  {   
         event.preventDefault() 
         
         let edu = [{
             currentId: uniqid(),
-            startDate: this.state.startDate,
-            endDate : this.state.endDate,
-            school : this.state.school,
-            title : this.state.title
+            startDate: currEdu.startDate,
+            endDate : currEdu.endDate,
+            school : currEdu.school,
+            title : currEdu.title
         }] 
+
+        const eduArr = eduList
+                            .concat(edu)
+                            .sort((a, b) => new Date (b.endDate) - new Date (a.endDate))
         
-        this.setState({
-            formActive : false,            
-            educationList : this.state.educationList
-                                                    .concat(edu)
-                                                    .sort((a, b) => new Date (b.endDate) - new Date (a.endDate)),
-            currentId: "",
-            startDate: "",
+        setFormActive(false)  
+        setEduList(eduArr)          
+        setCurrEdu({ // it cannot be an empty object
+            currentId : "",
+            startDate : "",
             endDate : "",
             school : "",
-            title : ""
-           
-        })
+            title: "",
+        })  
+       
     }   
 
-    handleDelete(schoolId) { 
-        let filteredArray = this.state.educationList.filter(item => item.currentId !== schoolId)
-        this.setState({educationList: filteredArray});
+    const handleDelete = (schoolId) => { 
+        let filteredArray = eduList.filter(item => item.currentId !== schoolId);
+        setEduList(filteredArray)
     }
 
-    handleEdit(schoolId) {
-        const currSchool = this.state.educationList.find(item => item.currentId === schoolId);
-        this.setState({           
-            formActive : true,
-            currentId : currSchool.currentId,
-            startDate : currSchool.startDate,
-            endDate : currSchool.endDate,
-            school : currSchool.school,
-            title: currSchool.title, 
-        })
-        this.handleDelete(schoolId);
-    }  
-    
-    render(){        
-        const { formActive, educationList} = this.state;
+    const handleEdit = (schoolId) => {
+        const currSchool = eduList.find(item => item.currentId === schoolId);
+        setFormActive(true);
+        setCurrEdu({...currSchool})
+        handleDelete(schoolId);
         
-        return(   
-            <div className="educationSection">
-                <h2 className="educationHeader">Education</h2>
-                <div className="addBtnDiv">
-                    <button  onClick={this.renderForm}>Add School</button>
-                </div>
-                {formActive && <EducationForm 
-                    info={this.state}
-                    onSubmit={this.handleSubmit}
-                    onChange={this.handleChange}                
-                /> }
-
-                {educationList.map((school) => {
-                    return ( 
-                        <EducationInfo key={school.currentId}
-                            info={school} 
-                            onDelete={() => this.handleDelete(school.currentId)}
-                            onEdit={() => this.handleEdit(school.currentId)}
-                        />                
-                    )
-                })}
+    }  
+   
+    return(   
+        <div className="educationSection">
+            <h2 className="educationHeader">Education</h2>
+            <div className="addBtnDiv">
+                <button  onClick={renderForm}>Add School</button>
             </div>
-        )   
-    }
+            {formActive && <EducationForm 
+                info={currEdu}
+                onSubmit={handleSubmit}
+                onChange={handleChange}                
+            /> }
+
+            {eduList.map((school) => {
+                return ( 
+                    <EducationInfo key={school.currentId}
+                        info={school} 
+                        onDelete={() => handleDelete(school.currentId)}
+                        onEdit={() => handleEdit(school.currentId)}
+                    />                
+                )
+            })}
+        </div>
+    )   
+    
 }
 
 export default Education;
